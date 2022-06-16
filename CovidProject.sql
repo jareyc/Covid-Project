@@ -118,11 +118,11 @@ WHERE continent is not null
 ORDER BY 1, 2
 
 -- 2.
-SELECT location, SUM(cast(new_deaths as int)) as total_death_count
+SELECT continent, SUM(cast(new_deaths as int)) as total_death_count
 FROM Covid_project..CovidDeaths
 WHERE continent is not null
 and location not in ('World', 'European Union', 'International')
-GROUP BY location
+GROUP BY continent
 ORDER BY total_death_count desc
 
 -- 3.
@@ -133,8 +133,8 @@ GROUP BY population, location
 ORDER BY population_infected_percentage desc
 
 -- 4.
-SELECT location, MAX(total_cases) as highest_infection_count, population, MAX((total_cases/population))*100 AS population_infected_percentage
+SELECT location, date, MAX(total_cases) as highest_infection_count, population, MAX((total_cases/population))*100 AS population_infected_percentage
 FROM Covid_project..CovidDeaths
 where continent is not null
-GROUP BY population, location, date
+GROUP BY location, population, date
 ORDER BY population_infected_percentage desc
